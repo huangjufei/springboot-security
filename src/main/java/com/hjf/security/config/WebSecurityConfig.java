@@ -8,23 +8,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * 自定义最基础的配置
+ * 授权
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    //配置用户信息服务,注意这里是注入注解,这个方法相当于UserDetails(基于内存得到UserDetails)
-/*
-  @Autowired
-    public void config(AuthenticationManagerBuilder auth) throws Exception {
-        // 在内存中配置用户，配置多个用户调用`and()`方法
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder()) // 指定加密方式
-                .withUser("admin").password(passwordEncoder().encode("123456")).roles("ADMIN").authorities("p1","p2")
-                .and()
-                .withUser("test").password(passwordEncoder().encode("123456")).roles("USER").authorities("p2");
-    }
-*/
 
     //密码在test目录下有测试方法
     @Bean
@@ -64,4 +51,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/login-success");//这里可以配置首页地址,这里我就随便返回了字符串
 
     }
+
+
+
+//注意不等于上面方法,配置用户信息服务,注意这里是注入注解,这个方法相当于UserDetails(基于内存得到UserDetails)
+/*
+  @Autowired
+    public void config(AuthenticationManagerBuilder auth) throws Exception {
+        // 在内存中配置用户，配置多个用户调用`and()`方法
+        auth.inMemoryAuthentication()
+                .passwordEncoder(passwordEncoder()) // 指定加密方式
+                .withUser("admin").password(passwordEncoder().encode("123456")).roles("ADMIN").authorities("p1","p2")
+                .and()
+                .withUser("test").password(passwordEncoder().encode("123456")).roles("USER").authorities("p2");
+    }
+*/
+
+
+
 }

@@ -1,6 +1,5 @@
 package com.hjf.security.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,26 +14,26 @@ public class LoginController {
     @GetMapping(value = "/r/r1")
     @ResponseBody
     public String r1() {
-        return getUsername()+"r1,我是被拦截的,且我必须要有p1才权限才可以被访问";
+        return getUsername() + "r1,我是被拦截的,且我必须要有p1才权限才可以被访问";
     }
 
     @GetMapping(value = "/r/r2")
     @ResponseBody
     public String r2() {
-        return getUsername()+"r2,我是被拦截的,且我必须要有p2才权限才可以被访问";
+        return getUsername() + "r2,我是被拦截的,且我必须要有p2才权限才可以被访问";
     }
 
     @PostMapping(value = "/login-success")
     @ResponseBody
     public String loginSuccess() {
-        return getUsername()+" 登录成功,我是不能被直接访问的";
+        return getUsername() + " 登录成功,我是不能被直接访问的";
     }
 
 
     @GetMapping(value = "/index")
     @ResponseBody
     public String index() {
-        return getUsername()+" 我是可以被直接访问的";
+        return getUsername() + " 我是可以被直接访问的";
     }
 
 

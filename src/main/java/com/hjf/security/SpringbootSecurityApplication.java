@@ -45,11 +45,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * https://www.cnblogs.com/zhengqing/p/11612654.html
  * 还有黑马文档
  *
+ * 该项目不包含oauth2 的内容:
+ * oauth2 主要讲是用户允许第三方授权,简单点就是用户允许如微信将自己的本人的用户信息或其他信息,授权给第3方(如慕课网)
+ *
+ *
  */
 @SpringBootApplication
 public class SpringbootSecurityApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SpringbootSecurityApplication.class, args);
     }
 
