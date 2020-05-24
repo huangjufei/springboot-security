@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * SpringbootSecurity 分为认证和授权
  * 认证可以理解为就是账号密码检查
  * 授权可以理解为对资源访问的检查
+ * 认证通过不等于就可以访问资源,也不是全部资源都需要授权.根据实际业务区别对待
  *
  * 对于认证,我们主要要学习的就是:
  * 1,定义密码规则 PasswordEncoder
