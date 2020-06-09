@@ -1,26 +1,9 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : 3306
-Source Server Version : 80019
-Source Host           : 127.0.0.1:3306
-Source Database       : user_db
-
-Target Server Type    : MYSQL
-Target Server Version : 80019
-File Encoding         : 65001
-
-Date: 2020-05-03 09:54:46
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
--- ----------------------------
--- Table structure for t_permission
--- ----------------------------
 DROP TABLE IF EXISTS `t_permission`;
 CREATE TABLE `t_permission` (
-  `id` varchar(32) NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` varchar(32) NOT NULL COMMENT '权限标识符',
   `description` varchar(64) DEFAULT NULL COMMENT '描述',
   `url` varchar(128) DEFAULT NULL COMMENT '请求地址',
@@ -30,17 +13,17 @@ CREATE TABLE `t_permission` (
 -- ----------------------------
 -- Records of t_permission
 -- ----------------------------
-INSERT INTO `t_permission` VALUES ('1', 'p1', '测试资源 1', '/r/r1');
-INSERT INTO `t_permission` VALUES ('2', 'p2', '测试资源2', '/r/r2');
+INSERT INTO `t_permission` VALUES ('1', 'p1', '测试资源1', '/r/r1');
+INSERT INTO `t_permission` VALUES ('2', 'p1', '测试资源2', '/r/r2');
 
 -- ----------------------------
 -- Table structure for t_role
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role` (
-  `id` varchar(32) NOT NULL,
-  `role_name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色表',
+  `description` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `status` char(1) NOT NULL,
@@ -58,8 +41,8 @@ INSERT INTO `t_role` VALUES ('1', '管理员', null, null, null, '');
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role_permission`;
 CREATE TABLE `t_role_permission` (
-  `role_id` varchar(32) NOT NULL,
-  `permission_id` varchar(32) NOT NULL,
+  `role_id` bigint NOT NULL,
+  `permission_id` bigint NOT NULL,
   PRIMARY KEY (`role_id`,`permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -77,9 +60,10 @@ CREATE TABLE `t_user` (
   `id` bigint NOT NULL COMMENT '用户id',
   `username` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `fullname` varchar(255) NOT NULL COMMENT '用户姓名',
-  `mobile` varchar(11) DEFAULT NULL COMMENT '手机号',
-  PRIMARY KEY (`id`) USING BTREE
+  `fullname` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户姓名',
+  `mobile` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '手机号',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `modile_index` (`mobile`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -92,10 +76,10 @@ INSERT INTO `t_user` VALUES ('1', 'huangjufei', '$2a$10$NlBC84MVb7F95EXYTXwLneXg
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE `t_user_role` (
-  `user_id` varchar(32) NOT NULL,
-  `role_id` varchar(32) NOT NULL,
+  `user_id` bigint NOT NULL,
+  `role_id` bigint NOT NULL,
   `create_time` datetime DEFAULT NULL,
-  `creator` varchar(255) DEFAULT NULL,
+  `creator` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
