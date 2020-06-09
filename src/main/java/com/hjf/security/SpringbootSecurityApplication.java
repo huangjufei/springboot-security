@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * SpringbootSecurity 的helloWorld 程序
+ * 这个授权架构可以完成非分布式的授权使用(特别适合做后台管理系统的权限控制),但前端没分离出去,如果分离出去需要测试是否正常
+ *
+ *
  * 如何玩?
  * 启动后访问controller层
  *
@@ -15,12 +18,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 授权可以理解为对资源访问的检查
  * 认证通过不等于就可以访问资源,也不是全部资源都需要授权.根据实际业务区别对待
  *
- * 对于认证,我们主要要学习的就是:
+ * 认证,主要就是:
  * 1,定义密码规则 PasswordEncoder
  * 2,实现 UserDetailsService 重写得到用户信息方法(用户名,密码,权限,角色等)
  * 3,主要类有 DaoAuthenticationProvider 这里会调 2 得到用户信息,然后进行密码比对
  *
- * 对授权 主要就是 :
+ * 授权,主要就是 :
  * 1, 继承 WebSecurityConfigurerAdapter 重写  protected void configure(HttpSecurity http) 方法
  * 2, 主要就是在方法内部定义如果拦截url,那些url需要被检查,如何检查,是检查角色还是权限(推荐)
  * 3, 对登陆和退出的重定义(接口),对页面的重定义

@@ -23,6 +23,12 @@ public class LoginController {
         return getUsername() + "r2,我是被拦截的,且我必须要有p2才权限才可以被访问";
     }
 
+    @GetMapping(value = "/r/r3")
+    @ResponseBody
+    public String r3() {
+        return getUsername() + "r3,我是被拦截的,只要是登陆成功就可以访问";
+    }
+
     @PostMapping(value = "/login-success")
     @ResponseBody
     public String loginSuccess() {

@@ -9,6 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * 授权
+ *
+ * 核心中的核心:
+ * 所有的请求都会经过下面的protected void configure(HttpSecurity http)方法,匹配是否需要认证或授权,相当于平安的拦截器
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,8 +26,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
+     * 在项目启动的时候,这个方法就会被加载
+     *
      * 配置安全拦截机制(拦截规则),下面的配置很容易出错,少一个/就会错
-     * 规则的顺序是重要的,更具体的规则应该先写.默认AffirmativeBased规则,一旦有一个匹配上且又放行了,后面的都忽略
+     * 规则的顺序是重要的,更具体的规则应该先写.默认AffirmativeBased规则,一旦前面的有一个匹配上且又放行了,后面的都忽略
      * 保护URL常用的方法有：
      * authenticated() 保护URL，需要用户登录
      * permitAll() 指定URL无需保护，一般应用与静态资源文件
@@ -42,7 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //如果权限拦截有问题可以在这个类下AffirmativeBased打断点
                 .antMatchers("/r/r1").hasAuthority("p1")
                 .antMatchers("/r/r2").hasAuthority("p2")
-                .antMatchers("/r/**").authenticated()//指定了除了r1、r2之外"/r/**"资源，通过身份认证就能够访问，这里使用SpEL（Spring Expression Language）表达式
+                .antMatchers("/r/**").authenticated()//指定了除了r1、r2之外"/r/**"资源，通过身份认证就能够访问，
+                // 这里使用SpEL（Spring Expression Language）表达式
                 .anyRequest().permitAll()//剩余的尚未匹配的资源，不做保护
                 .and()
                 .formLogin()//允许表单登陆
