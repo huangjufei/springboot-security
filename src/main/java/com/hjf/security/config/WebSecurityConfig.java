@@ -1,5 +1,7 @@
 package com.hjf.security.config;
 
+import com.hjf.security.exception.SimpleAccessDeniedHandler;
+import com.hjf.security.exception.SimpleAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -50,6 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.exceptionHandling()
+                .accessDeniedHandler(new SimpleAccessDeniedHandler())//自定义异常捕获累
+                .authenticationEntryPoint(new SimpleAuthenticationEntryPoint());
+
         http.csrf().disable()//关闭跨域拦截,即让spring security不再限制CSRF
                 .authorizeRequests()
                 //如果权限拦截有问题可以在这个类下AffirmativeBased打断点
