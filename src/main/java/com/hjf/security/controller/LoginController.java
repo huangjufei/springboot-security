@@ -36,6 +36,14 @@ public class LoginController {
     }
 
 
+    @PostMapping(value = "/login-fail")
+    @ResponseBody
+    public String loginFail() {
+        //其实这里还是该返回登陆也面,只是提示账号密码不一致
+        return "账号密码不一致,登陆失败";
+    }
+
+
     @GetMapping(value = "/index")
     @ResponseBody
     public String index() {

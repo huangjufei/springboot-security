@@ -11,7 +11,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * 授权
  *
  * 核心中的核心:
- * 所有的请求都会经过下面的protected void configure(HttpSecurity http)方法,匹配是否需要认证或授权,相当于平安的拦截器
+ * 所有的请求都会经过下面的protected void configure(HttpSecurity http)方法,
+ * 匹配是否需要认证或授权,相当于平安的拦截器
+ *
+ * 默认使用AffirmativeBased的逻辑是(通过配置要求的权限和用户本身的权限对比来投票)：
+ * （1）只要有一个成功就通过全部 对应数字1；
+ * （2）如果全部弃权也表示通过 对应数字0；
+ * （3）如果没有一个人投赞成票，但是有人投反对票，则将抛出AccessDeniedException 对应数字-1。
  */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -54,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()//允许表单登陆
                 .loginPage("/login-view")//自定义登陆页面地址(controller层),默认login;如果屏蔽这行就是默认登陆页面
                 .loginProcessingUrl("/login")//这是地址和login.jsp页面,其实也是交给默人的login 方法在处理;(会走到认证流程中去)点击登陆按钮发出的请求地址一致
-                .successForwardUrl("/login-success");//这里可以配置首页地址,这里我就随便返回了字符串
+                .successForwardUrl("/login-success")//这里可以配置首页地址,这里我就随便返回了字符串
+                .failureForwardUrl("/login-fail");//账号密码不对会到这个controller
 
     }
 

@@ -47,6 +47,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * 参考
  * https://www.cnblogs.com/zhengqing/p/11612654.html
+ * https://www.bilibili.com/video/BV1CJ411H7Wx?p=35
  * 还有黑马文档
  *
  * 该项目不包含oauth2 的内容:
@@ -60,6 +61,13 @@ public class SpringbootSecurityApplication {
 
     public static void main(String[] args) {
 
+
+        /**
+         * springSecurity 认证流程断点分析:
+         *
+         * DaoAuthenticationProvider.retrieveUser方法会返回一个UserDetails,然后再密码比对
+         *
+         */
         SpringApplication.run(SpringbootSecurityApplication.class, args);
     }
 
