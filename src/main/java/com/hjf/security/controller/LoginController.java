@@ -1,5 +1,6 @@
 package com.hjf.security.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class LoginController {
 
     @GetMapping(value = "/r/r3")
     @ResponseBody
+    @PreAuthorize("hasAuthority('p2')")//我添加了注解权限控制,现在登陆后,还要拥有p2权限才可以访问
     public String r3() {
         return getUsername() + "r3,我是被拦截的,只要是登陆成功就可以访问";
     }

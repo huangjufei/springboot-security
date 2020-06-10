@@ -2,6 +2,7 @@ package com.hjf.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * （3）如果没有一个人投赞成票，但是有人投反对票，则将抛出AccessDeniedException 对应数字-1。
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)//全局方法级别的授权(注解方式)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //密码在test目录下有测试方法
