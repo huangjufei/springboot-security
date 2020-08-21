@@ -21,13 +21,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 认证,主要就是:
  * 1,定义密码规则 PasswordEncoder
  * 2,实现 UserDetailsService 重写得到用户信息方法(用户名,密码,权限,角色等)
- * 3,主要类有 DaoAuthenticationProvider 这里会调 2 得到用户信息,然后进行密码比对
+ * 3,主要类有 DaoAuthenticationProvider 这里会调 上面2 得到用户信息,然后进行密码比对
  *
  * 授权,主要就是 :
  * 1, 继承 WebSecurityConfigurerAdapter 重写  protected void configure(HttpSecurity http) 方法
  * 2, 主要就是在方法内部定义如果拦截url,那些url需要被检查,如何检查,是检查角色还是权限(推荐)
  * 3, 对登陆和退出的重定义(接口),对页面的重定义
- * 4, 当然我们还可以基于注解在Controller方法上拦截,就当前我觉得不是很好(用不到这么细的粒度)
+ * 4, 当然我们还可以在Controller方法上基于注解拦截,就当前我觉得不是很好(用不到这么细的粒度)
  *
  * 5, 主要类有 AccessDecisionManager 的 decide 方法被3个类实现(都是通过投票确定,机制不一样)默认是AffirmativeBased
  * 所以这个方法我们会常常在这里打断点,排查授权无效等问题
